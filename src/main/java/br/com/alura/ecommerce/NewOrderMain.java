@@ -17,10 +17,12 @@ public class NewOrderMain {
                 orderDispatcher.send("ECOMMERCE_NEW_ORDER", userId, order);
             }
         }
-        try (var emailDispatcher = new KafkaDispatcher<String>()){
+        try (var emailDispatcher = new KafkaDispatcher<Email>()){
             for (var i = 0; i < 10; i++) {
                 var userId = UUID.randomUUID().toString();
-                var email = "Thank you for your order! We are processing your order!";
+                var emailSubject = "New order";
+                var emailBody = "Thank you for your order! We are processing your order!";
+                var email = new Email(emailSubject, emailBody);
                 emailDispatcher.send("ECOMMERCE_SEND_EMAIL", userId, email);
             }
         }
