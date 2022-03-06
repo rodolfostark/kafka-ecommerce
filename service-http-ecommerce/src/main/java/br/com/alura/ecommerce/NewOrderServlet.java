@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.net.http.HttpResponse;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
@@ -21,9 +22,14 @@ public class NewOrderServlet extends HttpServlet {
             var order = new Order(orderId, amount, email);
             try {
                 orderDispatcher.send("ECOMMERCE_NEW_ORDER", email, order);
+                System.out.println("New order sent successfully.");
+                resp.setStatus(HttpServletResponse.SC_OK);
+                resp.getWriter().println("New order sent successfully.");
             } catch (ExecutionException e) {
                 e.printStackTrace();
             } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
                 e.printStackTrace();
             }
 
