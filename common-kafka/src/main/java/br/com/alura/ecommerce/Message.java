@@ -17,4 +17,12 @@ public class Message<T> {
                 ", payload=" + payload +
                 '}';
     }
+
+    public CorrelationId getCorrelationId() {
+        return correlationId;
+    }
+
+    public T getPayload() {
+        return payload;
+    }
 }
