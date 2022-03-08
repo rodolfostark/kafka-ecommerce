@@ -8,7 +8,7 @@ public class User {
     }
 
     public String getReportPath() {
-        return "C:\\Users\\jonatas\\IdeaProjects\\ecommerce\\service-users\\target\\" + uuid + "-report.txt";
+        return "/service-users/target" + uuid + "-report.txt";
     }
 
     public String getUuid() {
