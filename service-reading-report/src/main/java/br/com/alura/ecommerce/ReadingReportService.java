@@ -1,4 +1,4 @@
-package ecommerce;
+package br.com.alura.ecommerce;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 
@@ -14,7 +14,7 @@ public class ReadingReportService {
         var readingReportService = new ReadingReportService();
         try (var service = new KafkaService<>(
                 ReadingReportService.class.getSimpleName(),
-                "ECOMMERCE_NEW_ORDER",
+                "USER_GENERATE_READING_REPORT",
                 readingReportService::parse,
                 Order.class,
                 Map.of())) {
@@ -29,20 +29,6 @@ public class ReadingReportService {
         System.out.println(record.value());
         System.out.println(record.partition());
         System.out.println(record.offset());
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            // ignoring
-            e.printStackTrace();
-        }
-        var order = record.value();
-        if(isFraud(order)) {
-            System.out.println("Order is a fraud!" + order);
-            orderKafkaDispatcher.send("ECOMMERCE_ORDER_REJECTED", order.getEmail(), order);
-        } else {
-            System.out.println("Approved: " + order);
-            orderKafkaDispatcher.send("ECOMMERCE_ORDER_APPROVED", order.getEmail(), order);
-        }
     }
 
     private boolean isFraud(Order order) {
