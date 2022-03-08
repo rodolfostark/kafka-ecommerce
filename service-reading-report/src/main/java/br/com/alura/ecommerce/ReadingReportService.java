@@ -9,8 +9,7 @@ import java.util.Map;
 
 public class ReadingReportService {
 
-    private final Path SOURCE = new File("src/main/resources/report.txt").toPath();
-    private final KafkaDispatcher<User> userKafkaDispatcher = new KafkaDispatcher<>();
+    private final Path SOURCE = new File("C:\\Users\\jonatas\\IdeaProjects\\ecommerce\\service-reading-report\\src\\main\\resources\\report.txt").toPath();
 
     public static void main(String[] args) {
         var readingReportService = new ReadingReportService();
